@@ -104,7 +104,7 @@ RSpec.describe 'Comments API', type: :request do
 
         context 'when the campaign comment does not exist' do 
             let(:comment_id) { 0 }
-             
+
             it 'returns status code 404' do   
                 expect(response).to have_http_status(404)
             end 
@@ -114,4 +114,13 @@ RSpec.describe 'Comments API', type: :request do
             end
         end 
     end
+
+    # Tests for DELETE /api/campaigns/:campaign_id/comments/:id 
+    describe 'DELETE /api/campaigns/:campaign_id/comments/:id' do  
+        before { delete "/api/campaigns/#{campaign_id}/comments/#{comment_id}" }
+
+        it 'returns status code 204' do  
+            expect(response).to have_http_status(204)
+        end
+    end 
 end

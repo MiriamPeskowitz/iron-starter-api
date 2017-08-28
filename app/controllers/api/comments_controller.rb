@@ -24,6 +24,12 @@ class API::CommentsController < ApplicationController
         json_response(@comment)
     end
 
+    # DELETE /api/campaigns/:campaign_id/comments/:id
+    def destroy 
+        @comment.destroy 
+        head :no_content
+    end
+
     private 
 
         def comment_params 
