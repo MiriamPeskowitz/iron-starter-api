@@ -18,6 +18,11 @@ class API::CampaignsController < ApplicationController
         json_response(@campaign, 201)
     end
 
+    def update 
+        @campaign.update(campaign_params) 
+        json_response(@campaign) 
+    end
+
     private 
 
         def campaign_params

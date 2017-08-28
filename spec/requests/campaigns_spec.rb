@@ -86,5 +86,34 @@ RSpec.describe 'Campaigns API', type: :request do
         end 
     end
 
+    # Tests for PUT /api/campaigns/:id   
+    describe 'PUT /api/campaigns/:id' do 
+
+        let(:valid_attributes) { { campaign: { goal: Faker::Number.between(1000, 1000000) } } }
+        
+        context 'when the campaign exists' do  
+            before { put "/api/campaigns/#{campaign_id}", params: valid_attributes }
+
+            it 'updates the campaign' do 
+                expect(json[:goal]).to eq(valid_attributes[:campaign][:goal])
+            end
+
+            it 'returns status code 200' do  
+                expect(response).to have_http_status(200) 
+            end  
+        end
+
+        context 'when the campaign is not found' do  
+            before { put "/api/campaigns/fdaf", params: valid_attributes }
+
+            it 'returns status code 404' do  
+                expect(response).to have_http_status(404) 
+            end
+
+            it 'returns record not found message' do  
+                expect(response.body).to match(/Couldn't find Campaign with 'id'=fdaf/)
+            end
+        end
+    end
 
 end
