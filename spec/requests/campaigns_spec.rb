@@ -68,6 +68,22 @@ RSpec.describe 'Campaigns API', type: :request do
                 expect(response).to have_http_status(201) 
             end
         end
+
+        context 'when the request is invalid' do  
+            before { post '/api/campaigns', params: { 
+                campaign: {
+                    title: '', description: '', goal: nil, pledged: nil, deadline: nil 
+                } 
+            } }
+
+            it 'returns status code 422' do  
+                expect(response).to have_http_status(422) 
+            end
+
+            it 'returns validation failure messages' do  
+                expect(response.body).to match(/Validation failed: Title can't be blank, Description can't be blank, Goal can't be blank, Pledged can't be blank, Deadline can't be blank/)
+            end
+        end 
     end
 
 
