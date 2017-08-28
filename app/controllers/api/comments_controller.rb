@@ -7,6 +7,11 @@ class API::CommentsController < ApplicationController
         json_response(@campaign.comments)
     end
 
+    # GET /api/campaigns/:campaign_id/comments/:id 
+    def show 
+        json_response(@comment) 
+    end
+
     private 
 
         def set_campaign
@@ -14,6 +19,6 @@ class API::CommentsController < ApplicationController
         end 
 
         def set_campaign_comment
-            @comment = @campaign.comments.find_by!(id: params[:id])
+            @comment = @campaign.comments.find_by!(id: params[:id]) if @campaign
         end
 end

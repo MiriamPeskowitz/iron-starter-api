@@ -28,8 +28,35 @@ RSpec.describe 'Comments API', type: :request do
                 expect(response).to have_http_status(404) 
             end 
 
-            it 'returns a not found message' do  
-                expect(response.body).to match(/Couldn't find Campaign with 'id'=0/)
+            it 'returns record not found message' do  
+                expect(response.body).to match(/Couldn't find Campaign/)
+            end
+        end
+    end
+
+    # Tests for GET /api/campaigns/:campaign_id/comments/:id
+    describe 'GET /api/campaigns/:campaign_id/comments/:id' do  
+        before { get "/api/campaigns/#{campaign_id}/comments/#{comment_id}" }
+
+        context 'when campaign comment exists' do  
+            it 'returns status code 200' do  
+                expect(response).to have_http_status(200)
+            end
+
+            it 'returns the campaign comment' do  
+                expect(json[:id]).to eq(comment_id) 
+            end
+        end
+
+        context 'when campaign comment does not exist' do  
+            let(:comment_id) { 0 } 
+
+            it 'returns status code 404' do   
+                expect(response).to have_http_status(404)
+            end
+
+            it 'returns record not found message' do  
+                expect(response.body).to match(/Couldn't find Comment/)
             end
         end
     end

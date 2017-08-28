@@ -112,7 +112,7 @@ RSpec.describe 'Campaigns API', type: :request do
             end
 
             it 'returns record not found message' do  
-                expect(response.body).to match(/Couldn't find Campaign with 'id'=0/)
+                expect(response.body).to match(/Couldn't find Campaign/)
             end
         end
     end
