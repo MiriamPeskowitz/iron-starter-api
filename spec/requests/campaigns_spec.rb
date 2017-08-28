@@ -116,4 +116,12 @@ RSpec.describe 'Campaigns API', type: :request do
         end
     end
 
+    # Test for DELETE /api/campaigns/:id  
+    describe 'DELETE /api/campaigns/:id' do  
+        before { delete "/api/campaigns/#{campaign_id}" }
+
+        it 'returns status code 204' do 
+            expect(response).to have_http_status(204)  
+        end
+    end
 end

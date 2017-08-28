@@ -23,6 +23,11 @@ class API::CampaignsController < ApplicationController
         json_response(@campaign) 
     end
 
+    def destroy 
+        @campaign.destroy
+        head :no_content 
+    end
+
     private 
 
         def campaign_params
