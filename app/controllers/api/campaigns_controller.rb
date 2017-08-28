@@ -18,11 +18,13 @@ class API::CampaignsController < ApplicationController
         json_response(@campaign, 201)
     end
 
+    # PUT /api/campaigns/:id
     def update 
         @campaign.update(campaign_params) 
         json_response(@campaign) 
     end
 
+    # DELETE /api/campaigns/:id
     def destroy 
         @campaign.destroy
         head :no_content 
