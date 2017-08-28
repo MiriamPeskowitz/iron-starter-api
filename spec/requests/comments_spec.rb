@@ -60,4 +60,29 @@ RSpec.describe 'Comments API', type: :request do
             end
         end
     end
+
+    # Tests for POST /api/campaigns/:campaign_id/comments 
+    describe 'POST /api/campaigns/:campaign_id/comments' do  
+        let(:valid_attributes) { { comment: { content: Faker::Lorem.paragraph } } }
+
+        context 'when request attributes are valid' do  
+            before { post "/api/campaigns/#{campaign_id}/comments", params: valid_attributes }
+
+            it 'returns status code 201' do   
+                expect(response).to have_http_status(201) 
+            end
+        end
+
+        context 'when an invalid request' do  
+            before { post "/api/campaigns/#{campaign_id}/comments", params: { comment: { content: nil } } }
+
+            it 'returns status code 422' do  
+                expect(response).to have_http_status(422)
+            end 
+
+            it 'returns a failure message' do   
+                expect(response.body).to match(/Validation failed: Content can't be blank/)
+            end 
+        end
+    end
 end

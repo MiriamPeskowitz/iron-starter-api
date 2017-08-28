@@ -12,7 +12,17 @@ class API::CommentsController < ApplicationController
         json_response(@comment) 
     end
 
+    # POST /api/campaigns/:campaign_id/comments 
+    def create  
+        @comment = @campaign.comments.create!(comment_params)
+        json_response(@comment, 201)
+    end
+
     private 
+
+        def comment_params 
+            params.require(:comment).permit(:content)
+        end
 
         def set_campaign
             @campaign = Campaign.find(params[:campaign_id])
