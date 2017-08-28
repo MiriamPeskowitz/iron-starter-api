@@ -36,5 +36,39 @@ RSpec.describe 'Campaigns API', type: :request do
         end
     end
 
+    # Tests for POST '/api/campaigns'
+    describe 'POST /api/campaigns' do  
+
+        let(:valid_attributes) { 
+            {  
+                campaign: {
+                    title: Faker::Lorem.word, 
+                    description: Faker::Lorem.paragraph,
+                    goal: Faker::Number.between(1000, 1000000), 
+                    pledged: Faker::Number.between(0, 10),
+                    deadline: Faker::Time.between(DateTime.now + 15, DateTime.now + 30)
+                }
+            } 
+        }
+
+        context 'when the request is valid' do 
+            
+            before { post '/api/campaigns', params: valid_attributes }
+
+            it 'creates a campaign' do  
+                expect(json[:title]).to eq(valid_attributes[:campaign][:title]) 
+                expect(json[:description]).to eq(valid_attributes[:campaign][:description])
+                expect(json[:goal]).to eq(valid_attributes[:campaign][:goal])
+                expect(json[:pledged]).to eq(valid_attributes[:campaign][:pledged])
+                expect(json[:deadline]).not_to eq(nil)
+                expect(json[:id]).not_to eq(nil)
+            end
+
+            it 'returns status code 201' do   
+                expect(response).to have_http_status(201) 
+            end
+        end
+    end
+
 
 end

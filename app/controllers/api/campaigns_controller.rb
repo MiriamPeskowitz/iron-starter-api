@@ -7,11 +7,23 @@ class API::CampaignsController < ApplicationController
         json_response(@campaigns) 
     end
 
+    # GET /api/campaigns/:id
     def show 
         json_response(@campaign)
     end
 
+    # POST /api/campaigns
+    def create 
+        @campaign = Campaign.create!(campaign_params) 
+        json_response(@campaign, 201)
+    end
+
     private 
+
+        def campaign_params
+            params.require(:campaign).permit(:title, :description, :goal, :pledged, :deadline) 
+        end
+
         def set_campaign  
             @campaign = Campaign.find(params[:id]) 
         end
