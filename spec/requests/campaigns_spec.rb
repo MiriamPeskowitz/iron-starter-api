@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Campaigns API', type: :request do
-    # Initialize Test Data
+    # Initial Test Data
     let!(:campaigns) { create_list(:campaign, 10) }
     let(:campaign_id) { campaigns.first.id }
 
@@ -104,14 +104,15 @@ RSpec.describe 'Campaigns API', type: :request do
         end
 
         context 'when the campaign is not found' do  
-            before { put "/api/campaigns/fdaf", params: valid_attributes }
+            let(:campaign_id) { 0 }
+            before { put "/api/campaigns/#{campaign_id}", params: valid_attributes }
 
             it 'returns status code 404' do  
                 expect(response).to have_http_status(404) 
             end
 
             it 'returns record not found message' do  
-                expect(response.body).to match(/Couldn't find Campaign with 'id'=fdaf/)
+                expect(response.body).to match(/Couldn't find Campaign with 'id'=0/)
             end
         end
     end
