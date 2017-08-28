@@ -18,6 +18,12 @@ class API::CommentsController < ApplicationController
         json_response(@comment, 201)
     end
 
+    # PUT /api/campaigns/:campaign_id/comments/:id
+    def update 
+        @comment.update(comment_params) 
+        json_response(@comment)
+    end
+
     private 
 
         def comment_params 

@@ -85,4 +85,33 @@ RSpec.describe 'Comments API', type: :request do
             end 
         end
     end
+
+    # Tests for PUT /api/campaigns/:campaign_id/comments/:id 
+    describe 'PUT /api/campaigns/:campaign_id/comments/:id' do  
+        let(:valid_attributes) { { comment: { content: Faker::Lorem.paragraph } } }
+
+        before { put "/api/campaigns/#{campaign_id}/comments/#{comment_id}", params: valid_attributes } 
+
+        context "when campaign comment exists" do  
+            it 'returns status code 200' do  
+                expect(response).to have_http_status(200) 
+            end 
+
+            it 'updates the campaign comment' do  
+                expect(json[:content]).to eq(valid_attributes[:comment][:content])
+            end
+        end
+
+        context 'when the campaign comment does not exist' do 
+            let(:comment_id) { 0 }
+             
+            it 'returns status code 404' do   
+                expect(response).to have_http_status(404)
+            end 
+
+            it 'returns record not found message' do  
+                expect(response.body).to match(/Couldn't find Comment/)
+            end
+        end 
+    end
 end
