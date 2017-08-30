@@ -4,24 +4,24 @@ class API::CommentsController < ApplicationController
 
     # GET /api/campaigns/:campaign_id/comments 
     def index 
-        json_response(@campaign.comments)
+        render json: @campaign.comments, status: 200
     end
 
     # GET /api/campaigns/:campaign_id/comments/:id 
     def show 
-        json_response(@comment) 
+        render json: @comment, status: 200
     end
 
     # POST /api/campaigns/:campaign_id/comments 
     def create  
         @comment = @campaign.comments.create!(comment_params)
-        json_response(@comment, 201)
+        render json: @comment, status: 201
     end
 
     # PUT /api/campaigns/:campaign_id/comments/:id
     def update 
         @comment.update(comment_params) 
-        json_response(@comment)
+        render json: @comment, status: 200
     end
 
     # DELETE /api/campaigns/:campaign_id/comments/:id

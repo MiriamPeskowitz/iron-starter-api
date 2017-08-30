@@ -4,24 +4,24 @@ class API::CampaignsController < ApplicationController
     # GET /api/campaigns 
     def index 
         @campaigns = Campaign.all 
-        json_response(@campaigns) 
+        render json: @campaigns, status: 200 
     end
 
     # GET /api/campaigns/:id
     def show 
-        json_response(@campaign)
+        render json: @campaign, status: 200
     end
 
     # POST /api/campaigns
     def create 
         @campaign = Campaign.create!(campaign_params) 
-        json_response(@campaign, 201)
+        render json: @campaign, status: 201
     end
 
     # PUT /api/campaigns/:id
     def update 
         @campaign.update(campaign_params) 
-        json_response(@campaign) 
+        render json: @campaign, status: 200
     end
 
     # DELETE /api/campaigns/:id
