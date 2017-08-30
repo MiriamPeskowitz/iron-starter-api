@@ -5,7 +5,6 @@ class CreateCampaigns < ActiveRecord::Migration[5.1]
       t.text :description
       t.integer :goal
       t.integer :pledged
-      t.timestamp :deadline
 
       t.timestamps
     end

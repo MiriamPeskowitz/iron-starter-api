@@ -45,8 +45,7 @@ RSpec.describe 'Campaigns API', type: :request do
                     title: Faker::Lorem.word, 
                     description: Faker::Lorem.paragraph,
                     goal: Faker::Number.between(1000, 1000000), 
-                    pledged: Faker::Number.between(0, 10),
-                    deadline: Faker::Time.between(DateTime.now + 15, DateTime.now + 30)
+                    pledged: Faker::Number.between(0, 10)
                 }
             } 
         }
@@ -60,7 +59,6 @@ RSpec.describe 'Campaigns API', type: :request do
                 expect(json[:description]).to eq(valid_attributes[:campaign][:description])
                 expect(json[:goal]).to eq(valid_attributes[:campaign][:goal])
                 expect(json[:pledged]).to eq(valid_attributes[:campaign][:pledged])
-                expect(json[:deadline]).not_to eq(nil)
                 expect(json[:id]).not_to eq(nil)
             end
 
@@ -72,7 +70,7 @@ RSpec.describe 'Campaigns API', type: :request do
         context 'when the request is invalid' do  
             before { post '/api/campaigns', params: { 
                 campaign: {
-                    title: '', description: '', goal: nil, pledged: nil, deadline: nil 
+                    title: '', description: '', goal: nil, pledged: nil
                 } 
             } }
 
@@ -81,7 +79,7 @@ RSpec.describe 'Campaigns API', type: :request do
             end
 
             it 'returns validation failure messages' do  
-                expect(response.body).to match(/Validation failed: Title can't be blank, Description can't be blank, Goal can't be blank, Pledged can't be blank, Deadline can't be blank/)
+                expect(response.body).to match(/Validation failed: Title can't be blank, Description can't be blank, Goal can't be blank, Pledged can't be blank/)
             end
         end 
     end

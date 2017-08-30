@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20170828142750) do
     t.text "description"
     t.integer "goal"
     t.integer "pledged"
-    t.datetime "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
